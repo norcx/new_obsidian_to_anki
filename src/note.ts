@@ -80,6 +80,7 @@ abstract class AbstractNote {
     abstract getFields(): Record<string, string>
 
     parse(deck:string, url:string, frozen_fields_dict: FROZEN_FIELDS_DICT, data: FileData, context:string): AnkiConnectNoteAndID {
+        //delete data.template["use_path_as_deck"];
         let template = JSON.parse(JSON.stringify(data.template))
 		template["modelName"] = this.note_type
 		if (this.no_note_type) {

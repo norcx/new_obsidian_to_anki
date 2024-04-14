@@ -1225,7 +1225,7 @@ class File:
         result = App.DECK_REGEXP.search(self.file)
         if result is not None:
             self.target_deck = result.group(1)
-        else:
+        else:#todo
             self.target_deck = NOTE_DICT_TEMPLATE["deckName"]
 
     def setup_global_tags(self):

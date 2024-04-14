@@ -1,7 +1,7 @@
 {
-    "name": "obsidian-to-anki-plugin",
-    "version": "3.6.0",
-    "description": "This is an Anki integration plugin! Designed for efficient bulk exporting.",
+    "name": "obsidian-new-to-anki-plugin",
+    "version": "0.0.0",
+    "description": "To help people to learn better.",
     "main": "main.js",
     "scripts": {
         "dev": "rollup --config rollup.config.js -w",

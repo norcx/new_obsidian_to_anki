@@ -92,8 +92,9 @@ abstract class AbstractFile {
     tags: string[]
 
     formatter: FormatConverter
-
-    constructor(file_contents: string, path:string, url: string, data: FileData, file_cache: CachedMetadata) {
+    fullpath: string
+    use_path_as_deck:boolean
+    constructor(file_contents: string, path:string, url: string, data: FileData, file_cache: CachedMetadata, fullpath: string,use_path_as_deck:boolean) {
         this.data = data
         this.file = file_contents
         this.path = path
@@ -101,6 +102,8 @@ abstract class AbstractFile {
         this.original_file = this.file
         this.file_cache = file_cache
         this.formatter = new FormatConverter(file_cache, this.data.vault_name)
+        this.fullpath = fullpath
+        this.use_path_as_deck = use_path_as_deck
     }
 
     setup_frozen_fields_dict() {
@@ -129,8 +132,14 @@ abstract class AbstractFile {
     }
 
     setup_target_deck() {
+        if(this.use_path_as_deck){
+            this.target_deck = this.fullpath.replaceAll("/","::")
+        }
+        else{
         const result = this.file.match(this.data.DECK_REGEXP)
         this.target_deck = result ? result[1] : this.data.template["deckName"]
+        }
+
     }
 
     setup_global_tags() {
@@ -259,8 +268,8 @@ export class AllFile extends AbstractFile {
     regex_notes_to_add: AnkiConnectNote[]
     regex_id_indexes: number[]
 
-    constructor(file_contents: string, path:string, url: string, data: FileData, file_cache: CachedMetadata) {
-        super(file_contents, path, url, data, file_cache)
+    constructor(file_contents: string, path:string, url: string, data: FileData, file_cache: CachedMetadata,fullpath:string,use_path_as_deck:boolean) {
+        super(file_contents, path, url, data, file_cache, fullpath,use_path_as_deck)
         this.custom_regexps = data.custom_regexps
     }
 

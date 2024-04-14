@@ -136,6 +136,7 @@ export class FileManager {
     async genAllFiles() {
         for (let file of this.files) {
             const content: string = await this.app.vault.read(file)
+            const fullpath: string = (file.path)
             const cache: CachedMetadata = this.app.metadataCache.getCache(file.path)
             const file_data = this.dataToFileData(file)
             this.ownFiles.push(
@@ -144,7 +145,9 @@ export class FileManager {
                     file.path,
                     this.data.add_file_link ? this.getUrl(file) : "",
                     file_data,
-                    cache
+                    cache,
+                    fullpath,
+                    this.data.use_path_as_deck
                 )
             )
         }
