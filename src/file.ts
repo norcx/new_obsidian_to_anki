@@ -1,5 +1,5 @@
 /*Performing plugin operations on markdown file contents*/
-
+import { appendFile } from 'fs';
 import { FROZEN_FIELDS_DICT } from './interfaces/field-interface'
 import { AnkiConnectNote, AnkiConnectNoteAndID } from './interfaces/note-interface'
 import { FileData } from './interfaces/settings-interface'
@@ -324,8 +324,6 @@ export class AllFile extends AbstractFile {
                 this.data,
                 this.data.add_context ? this.getContextAtIndex(note_match.index) : ""
             )
-            if( Object.keys(this.frozen_fields_dict).length === 0)
-            continue
             if (parsed.identifier == null) {
                 // Need to make sure global_tags get added
                 parsed.note.tags.push(...this.global_tags.split(TAG_SEP))
@@ -364,9 +362,6 @@ export class AllFile extends AbstractFile {
                 this.data,
                 this.data.add_context ? this.getContextAtIndex(note_match.index) : ""
             )
-            if( Object.keys(this.frozen_fields_dict).length === 0){
-                continue
-            }
             if (parsed.identifier == null) {
                 // Need to make sure global_tags get added
                 parsed.note.tags.push(...this.global_tags.split(TAG_SEP))
@@ -405,9 +400,6 @@ export class AllFile extends AbstractFile {
                         this.data,
                         this.data.add_context ? this.getContextAtIndex(match.index) : ""
                     )
-                    if( Object.keys(this.frozen_fields_dict).length === 0){
-                        continue
-                    }
                     if (search_id) {
                         if (!(this.data.EXISTING_IDS.includes(parsed.identifier))) {
                             if (parsed.identifier == CLOZE_ERROR) {
