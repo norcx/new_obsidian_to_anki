@@ -1,5 +1,4 @@
 /*Performing plugin operations on markdown file contents*/
-import { appendFile } from 'fs';
 import { FROZEN_FIELDS_DICT } from './interfaces/field-interface'
 import { AnkiConnectNote, AnkiConnectNoteAndID } from './interfaces/note-interface'
 import { FileData } from './interfaces/settings-interface'
