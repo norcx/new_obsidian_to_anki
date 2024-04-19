@@ -43,6 +43,7 @@ export default class MyPlugin extends Plugin {
 				"ID Comments": true,
 				"Add Obsidian Tags": false,
 				"Use Path as Deck" : false,
+				"Add Card link": false
 			},
 			IGNORED_FILE_GLOBS: DEFAULT_IGNORED_FILE_GLOBS,
 		}

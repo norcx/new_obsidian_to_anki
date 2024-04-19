@@ -12,7 +12,8 @@ const defaultDescs = {
 	"CurlyCloze - Highlights to Clozes": "Convert ==highlights== -> {highlights} to be processed by CurlyCloze.",
 	"ID Comments": "Wrap note IDs in a HTML comment.",
 	"Add Obsidian Tags": "Interpret #tags in the fields of a note as Anki tags, removing them from the note text in Anki.",
-	"Use Path as Deck": "Make anki's deck consistent with obsidian's folder structure"
+	"Use Path as Deck": "Make anki's deck consistent with obsidian's folder structure",
+	"Add Card link":"Add a link to be able to jump from anki to a block in obsidian",
 }
 
 export const DEFAULT_IGNORED_FILE_GLOBS = [
@@ -198,6 +199,9 @@ export class SettingsTab extends PluginSettingTab {
 		}
 		if (!(plugin.settings["Defaults"].hasOwnProperty("Use Path as Deck"))) {
 			plugin.settings["Defaults"]["Use Path as Deck"] = false
+		}
+		if (!(plugin.settings["Defaults"].hasOwnProperty("Add Card link"))) {
+			plugin.settings["Defaults"]["Add Card link"] = false
 		}
 		for (let key of Object.keys(plugin.settings["Defaults"])) {
 			// To account for removal of regex setting

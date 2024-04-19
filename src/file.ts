@@ -10,6 +10,7 @@ import { FormatConverter } from './format'
 import { CachedMetadata, HeadingCache } from 'obsidian'
 
 const double_regexp: RegExp = /(?:\r\n|\r|\n)((?:\r\n|\r|\n)(?:<!--)?ID: \d+)/g
+const card_regexp: RegExp = /(?:\r\n|\r|\n)((?:\r\n|\r|\n)[Card])/g
 
 function id_to_str(identifier:number, inline:boolean = false, comment:boolean = false): string {
     let result = "ID: " + identifier.toString()
@@ -93,7 +94,8 @@ abstract class AbstractFile {
     formatter: FormatConverter
     fullpath: string
     use_path_as_deck:boolean
-    constructor(file_contents: string, path:string, url: string, data: FileData, file_cache: CachedMetadata, fullpath: string,use_path_as_deck:boolean) {
+    add_card_link:boolean
+    constructor(file_contents: string, path:string, url: string, data: FileData, file_cache: CachedMetadata, fullpath: string,use_path_as_deck:boolean, add_card_link:boolean) {
         this.data = data
         this.file = file_contents
         this.path = path
@@ -103,6 +105,7 @@ abstract class AbstractFile {
         this.formatter = new FormatConverter(file_cache, this.data.vault_name)
         this.fullpath = fullpath
         this.use_path_as_deck = use_path_as_deck
+        this.add_card_link = add_card_link
     }
 
     setup_frozen_fields_dict() {
@@ -267,8 +270,8 @@ export class AllFile extends AbstractFile {
     regex_notes_to_add: AnkiConnectNote[]
     regex_id_indexes: number[]
 
-    constructor(file_contents: string, path:string, url: string, data: FileData, file_cache: CachedMetadata,fullpath:string,use_path_as_deck:boolean) {
-        super(file_contents, path, url, data, file_cache, fullpath,use_path_as_deck)
+    constructor(file_contents: string, path:string, url: string, data: FileData, file_cache: CachedMetadata,fullpath:string,use_path_as_deck:boolean,add_card_link:boolean) {
+        super(file_contents, path, url, data, file_cache, fullpath,use_path_as_deck,add_card_link)
         this.custom_regexps = data.custom_regexps
     }
 
@@ -425,6 +428,21 @@ export class AllFile extends AbstractFile {
         }
     }
 
+    scanLink2ob(regexp_str: string) {
+            let inserts = [];
+            let regexp: RegExp = new RegExp(regexp_str, 'gm')      
+            for (let match of findignore(regexp, this.file, this.ignore_spans)) {
+                if (match[0].includes("[Card]")) {
+                    continue; // 如果包含 "[Card]"，则跳过当前匹配
+                }
+                let id: string = Math.random().toString(36).substring(2, 8)
+                let modified:string ="\n"+"[Card]("+ this.formatter.getUrlFromLink( this.fullpath+"#^" + id )+") ^"+ id
+                inserts.push([match.index + match[0].length, modified]);
+            }
+            this.file = string_insert(this.file, inserts);
+            //this.file = this.file.replace(card_regexp, "$1")
+    }
+
     scanFile() {
         this.setupScan()
         this.scanNotes()
@@ -432,6 +450,9 @@ export class AllFile extends AbstractFile {
         for (let note_type in this.custom_regexps) {
             const regexp_str: string = this.custom_regexps[note_type]
             if (regexp_str) {
+                if(this.add_card_link){
+                    this.scanLink2ob(regexp_str)
+                }
                 this.search(note_type, regexp_str)
             }
         }

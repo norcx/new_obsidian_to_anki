@@ -1,7 +1,7 @@
 {
   "settings": {
     "CUSTOM_REGEXPS": {
-      "Basic": "",
+      "Basic": "((?:[^\\n][\\n]?)+) #flashcard ?\\n*((?:\\n(?:^.{1,3}$|^.{4}(?<!<!--).*))+)",
       "Basic+": "",
       "Basic++": "",
       "Basic+++": "",
@@ -43,8 +43,16 @@
       "问答题（输入答案）": "正面"
     },
     "CONTEXT_FIELDS": {},
-    "FOLDER_DECKS": {},
-    "FOLDER_TAGS": {},
+    "FOLDER_DECKS": {
+      "未命名": "",
+      "第一个文件夹": "",
+      "第一个文件夹/第二个文件夹": ""
+    },
+    "FOLDER_TAGS": {
+      "未命名": "",
+      "第一个文件夹": "",
+      "第一个文件夹/第二个文件夹": ""
+    },
     "Syntax": {
       "Begin Note": "START",
       "End Note": "END",
@@ -66,13 +74,147 @@
       "CurlyCloze - Highlights to Clozes": false,
       "ID Comments": true,
       "Add Obsidian Tags": false,
-      "Use Path as Deck": false
+      "Use Path as Deck": true
     },
     "IGNORED_FILE_GLOBS": [
       "**/*.excalidraw.md"
     ]
   },
   "Added Media": [],
-  "File Hashes": {},
-  "fields_dict": {}
+  "File Hashes": {
+    "这个文件不会出现.md": "3bf0f4061ead725b9f00d10156e48c32",
+    "这次必须成功.md": "c8cb44b25bf0f5f3abdb489ce570dea7",
+    "第一个文件夹/读书.md": "d41d8cd98f00b204e9800998ecf8427e",
+    "第一个文件夹/读一本好书.md": "2bc012e3b6e73af53f1e2254e494d7d2",
+    "第一个文件夹/第二个文件夹/你好呀.md": "09639afc110da5e7033d4e6ce12147ff",
+    "第一个文件夹/第二个文件夹/未命名.md": "ef1e094f5b366fe563e71c1f6bcd141c",
+    "第一个文件夹/第二个文件夹/你好.md": "d41d8cd98f00b204e9800998ecf8427e",
+    "要成功了.md": "9ff4e52b269f2e12afbb019771ca51c7",
+    "破案吧.md": "03e25ab08d38fd6ea0c97b27ad4a4b4a",
+    "未命名 1.md": "4c811787fb4a175e57da923063c1e41c",
+    "有笔记但是没有内容.md": "284f5c9fb85e25bcd79b43b83b1c3e33",
+    "未命名 4.md": "295a6be3b2f9283e4d143f2dc27d7ff2",
+    "未命名 2.md": "30a44ea90cb104d9b16dda3826232784",
+    "成功.md": "bcab17d6d9aa24ec021d86219ba80275",
+    "你是谁.md": "7ce5d9b5499bf82ca585cd0556562db2",
+    "什么都没有.md": "2228e977ebea8966e27929f43e39cb67",
+    "README.md": "5844997ffd21e5020ecaa7670e5d942e"
+  },
+  "fields_dict": {
+    "Basic": [
+      "Front",
+      "Back"
+    ],
+    "Basic+": [
+      "Front",
+      "Back"
+    ],
+    "Basic++": [
+      "Front",
+      "Back"
+    ],
+    "Basic+++": [
+      "Front",
+      "Back"
+    ],
+    "Basic-73fde": [
+      "Front",
+      "Back"
+    ],
+    "Cloze ALL": [
+      "文字",
+      "背面额外"
+    ],
+    "Pot Card 2": [
+      "Front",
+      "Back",
+      "Symbol1",
+      "Voice1",
+      "Symbol2",
+      "Voice2"
+    ],
+    "Python - Basic": [
+      "Front",
+      "Back - Basic",
+      "Back - Code",
+      "Additional Info",
+      "Example",
+      "Version"
+    ],
+    "Python - Basic (and reversed card)": [
+      "Front",
+      "Back",
+      "Additional Info",
+      "With Options",
+      "Example",
+      "Version"
+    ],
+    "Python - Cloze": [
+      "Text",
+      "Example",
+      "Version"
+    ],
+    "UVBasic-English": [
+      "英语单词",
+      "英美音标",
+      "中文释义",
+      "vocab简明",
+      "vocab扩展",
+      "真题原句",
+      "柯林斯星级",
+      "柯林斯解释",
+      "来源",
+      "英语发音"
+    ],
+    "单词": [
+      "单词",
+      "音标",
+      "助记词",
+      "线索",
+      "词性1",
+      "释义1",
+      "词性2",
+      "释义2",
+      "发音",
+      "拓展"
+    ],
+    "图片遮盖": [
+      "遮盖",
+      "图片",
+      "标题",
+      "背面额外",
+      "注释"
+    ],
+    "填空题": [
+      "文字",
+      "背面额外"
+    ],
+    "红宝书": [
+      "单词",
+      "音标",
+      "解释",
+      "红宝书",
+      "字源",
+      "不择手段背单词",
+      "趣味全助记",
+      "Audio"
+    ],
+    "问答题": [
+      "正面",
+      "背面"
+    ],
+    "问答题（同时生成翻转的卡片<可选>）": [
+      "正面",
+      "背面",
+      "添加翻转的卡片"
+    ],
+    "问答题（同时生成翻转的卡片）": [
+      "正面",
+      "背面"
+    ],
+    "问答题（输入答案）": [
+      "正面",
+      "背面"
+    ]
+  }
 }
