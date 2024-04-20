@@ -432,11 +432,11 @@ export class AllFile extends AbstractFile {
             let inserts = [];
             let regexp: RegExp = new RegExp(regexp_str, 'gm')      
             for (let match of findignore(regexp, this.file, this.ignore_spans)) {
-                if (match[0].includes("[Card]")) {
+                if (match[0].includes("[🔗]")) {
                     continue; // 如果包含 "[Card]"，则跳过当前匹配
                 }
                 let id: string = Math.random().toString(36).substring(2, 8)
-                let modified:string ="\n"+"[Card]("+ this.formatter.getUrlFromLink( this.fullpath+"#^" + id )+") ^"+ id
+                let modified:string ="\n"+"[🔗]("+ this.formatter.getUrlFromLink( this.fullpath+"#^" + id )+") ^"+ id
                 inserts.push([match.index + match[0].length, modified]);
             }
             this.file = string_insert(this.file, inserts);

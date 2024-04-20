@@ -6,7 +6,7 @@
       "Basic++": "",
       "Basic+++": "",
       "Basic-73fde": "",
-      "Cloze ALL": "",
+      "Cloze ALL": "(?:^[\\s-]*-[\\s-]*-[\\s-]*-[\\s-]*$\\n)((?:.*\\n)*?(?:.*\\{\\{c\\d+::(?:.|\\n)+?\\}\\}.*\\n)(?:^.{1,3}$|^.{4}(?<!<!--).*$\\n)*?)(?=(?:^<!--.*$\\n)?^[\\s-]*-[\\s-]*-[\\s-]*-[\\s-]*$\\n)",
       "Pot Card 2": "",
       "Python - Basic": "",
       "Python - Basic (and reversed card)": "",
@@ -46,12 +46,16 @@
     "FOLDER_DECKS": {
       "未命名": "",
       "第一个文件夹": "",
-      "第一个文件夹/第二个文件夹": ""
+      "第一个文件夹/第二个文件夹": "",
+      "norcx'anki'test": "",
+      "norcx'anki'test/asserts": ""
     },
     "FOLDER_TAGS": {
       "未命名": "",
       "第一个文件夹": "",
-      "第一个文件夹/第二个文件夹": ""
+      "第一个文件夹/第二个文件夹": "",
+      "norcx'anki'test": "",
+      "norcx'anki'test/asserts": ""
     },
     "Syntax": {
       "Begin Note": "START",
@@ -74,13 +78,21 @@
       "CurlyCloze - Highlights to Clozes": false,
       "ID Comments": true,
       "Add Obsidian Tags": false,
-      "Use Path as Deck": true
+      "Use Path as Deck": true,
+      "Add Card link": true
     },
     "IGNORED_FILE_GLOBS": [
       "**/*.excalidraw.md"
     ]
   },
-  "Added Media": [],
+  "Added Media": [
+    "Pasted image 20240419143443.png",
+    "Pasted image 20240419143952.png",
+    "Pasted image 20240419152053.png",
+    "Pasted image 20240419152108.png",
+    "Pasted image 20240419152116.png",
+    "Pasted image 20240419152119.png"
+  ],
   "File Hashes": {
     "这个文件不会出现.md": "3bf0f4061ead725b9f00d10156e48c32",
     "这次必须成功.md": "c8cb44b25bf0f5f3abdb489ce570dea7",
@@ -98,7 +110,13 @@
     "成功.md": "bcab17d6d9aa24ec021d86219ba80275",
     "你是谁.md": "7ce5d9b5499bf82ca585cd0556562db2",
     "什么都没有.md": "2228e977ebea8966e27929f43e39cb67",
-    "README.md": "5844997ffd21e5020ecaa7670e5d942e"
+    "README.md": "5844997ffd21e5020ecaa7670e5d942e",
+    "图片测试.md": "0e71ded111d1d619f9693a3b48e20cc3",
+    "测试文件.md": "f0ccad7d3b2091db20689782f5b34cc5",
+    "Welcome.md": "5dce4937496ad2d20178a7578f1a1368",
+    "norcx'anki'test/未命名.md": "68a672a3c453707a5db64bd4da5324c5",
+    "未命名.md": "d41d8cd98f00b204e9800998ecf8427e",
+    "norcx'anki'test/挖空测试.md": "08d3f20ea7d3869cf4e63b8ad32533ae"
   },
   "fields_dict": {
     "Basic": [
