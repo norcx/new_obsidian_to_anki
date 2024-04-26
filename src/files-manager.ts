@@ -143,7 +143,7 @@ export class FileManager {
                 new AllFile(
                     content,
                     file.path,
-                    this.data.add_file_link ? this.getUrl(file) : "",
+                    this.data.add_file_link ? (this.data.add_card_link ? this.getUrl(file).slice(0,-3)+"%23%5E" :this.getUrl(file)) : "",
                     file_data,
                     cache,
                     fullpath,

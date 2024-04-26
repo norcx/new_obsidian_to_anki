@@ -10,7 +10,7 @@ import { FileData } from './interfaces/settings-interface'
 
 const TAG_PREFIX:string = "Tags: "
 export const TAG_SEP:string = " "
-export const ID_REGEXP_STR: string = String.raw`\n?(?:<!--)?(?:ID: (\d+).*)`
+export const ID_REGEXP_STR: string = String.raw`\n?(?:<!--)?(?:\^?ID(?:\: |-)(\d+).*)`//`\n?(?:<!--)?(?:ID: (\d+).*)`
 export const TAG_REGEXP_STR: string = String.raw`(Tags: .*)`
 const OBS_TAG_REGEXP: RegExp = /#(\w+)/g
 
@@ -89,7 +89,12 @@ abstract class AbstractNote {
         template["fields"] = this.getFields()
 		const file_link_fields = data.file_link_fields
         if (url) {
-            this.formatter.format_note_with_url(template, url, file_link_fields[this.note_type])
+            if(url.endsWith("%23%5E")){
+            this.formatter.format_note_with_url(template,url+"ID-"+String(this.identifier), file_link_fields[this.note_type])
+            }
+            else{
+            this.formatter.format_note_with_url(template,url, file_link_fields[this.note_type])
+            }
         }
         if (Object.keys(frozen_fields_dict).length) {
             this.formatter.format_note_with_frozen_fields(template, frozen_fields_dict)
@@ -291,7 +296,12 @@ export class RegexNote {
 		template["fields"] = this.getFields()
 		const file_link_fields = data.file_link_fields
 		if (url) {
-            this.formatter.format_note_with_url(template, url, file_link_fields[this.note_type])
+            if(url.endsWith("%23%5E")){
+            this.formatter.format_note_with_url(template,url+"ID-"+String(this.identifier), file_link_fields[this.note_type])
+            }
+            else{
+            this.formatter.format_note_with_url(template,url, file_link_fields[this.note_type])
+            }
         }
         if (Object.keys(frozen_fields_dict).length) {
             this.formatter.format_note_with_frozen_fields(template, frozen_fields_dict)

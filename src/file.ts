@@ -12,7 +12,10 @@ import { CachedMetadata, HeadingCache } from 'obsidian'
 const double_regexp: RegExp = /(?:\r\n|\r|\n)((?:\r\n|\r|\n)(?:<!--)?ID: \d+)/g
 const card_regexp: RegExp = /(?:\r\n|\r|\n)((?:\r\n|\r|\n)[Card])/g
 
-function id_to_str(identifier:number, inline:boolean = false, comment:boolean = false): string {
+function id_to_str(identifier:number, inline:boolean = false, comment:boolean = false,blocklinkid:boolean): string {
+    if(blocklinkid){
+        return "^ID-"+identifier.toString()
+    }
     let result = "ID: " + identifier.toString()
     if (comment) {
         result = "<!--" + result + "-->"
@@ -470,7 +473,7 @@ export class AllFile extends AbstractFile {
             (id_position: number, index: number) => {
                 const identifier: number | null = this.note_ids[index]
                 if (identifier) {
-                    normal_inserts.push([id_position, id_to_str(identifier, false, this.data.comment)])
+                    normal_inserts.push([id_position, id_to_str(identifier, false, this.data.comment,this.data.add_card_link)])
                 }
             }
         )
@@ -479,7 +482,7 @@ export class AllFile extends AbstractFile {
             (id_position: number, index: number) => {
                 const identifier: number | null = this.note_ids[index + this.notes_to_add.length] //Since regular then inline
                 if (identifier) {
-                    inline_inserts.push([id_position, id_to_str(identifier, true, this.data.comment)])
+                    inline_inserts.push([id_position, id_to_str(identifier, true, this.data.comment,this.data.add_card_link)])
                 }
             }
         )
@@ -488,7 +491,7 @@ export class AllFile extends AbstractFile {
             (id_position: number, index: number) => {
                 const identifier: number | null = this.note_ids[index + this.notes_to_add.length + this.inline_notes_to_add.length] // Since regular then inline then regex
                 if (identifier) {
-                    regex_inserts.push([id_position, "\n" + id_to_str(identifier, false, this.data.comment)])
+                    regex_inserts.push([id_position, "\n" + id_to_str(identifier, false, this.data.comment,this.data.add_card_link)])
                 }
             }
         )
