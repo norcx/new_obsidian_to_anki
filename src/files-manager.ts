@@ -5,6 +5,7 @@ import { AllFile } from './file'
 import * as AnkiConnect from './anki'
 import { basename } from 'path'
 import multimatch from "multimatch"
+import { AnkiConnectNote } from './interfaces/note-interface'
 interface addNoteResponse {
     result: number,
     error: string | null
@@ -283,6 +284,7 @@ export class FileManager {
             }
             file.card_ids = temp
         }
+        let temp: AnkiConnect.AnkiConnectRequest[] = []
         for (let index in this.ownFiles) {
             let i: number = parseInt(index)
             let ownFile = this.ownFiles[i]
@@ -290,10 +292,13 @@ export class FileManager {
             ownFile.tags = tag_list
             ownFile.writeIDs()
             ownFile.removeEmpties()
+            temp.push(ownFile.getAddNotesWithId())
             if (ownFile.file !== ownFile.original_file) {
                 await this.app.vault.modify(obFile, ownFile.file)
             }
         }
+        console.info("Requesting addition of id links...")
+        await AnkiConnect.invoke('multi', {actions: temp})
         await this.requests_2()
     }
 

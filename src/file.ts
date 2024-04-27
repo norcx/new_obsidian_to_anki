@@ -431,20 +431,6 @@ export class AllFile extends AbstractFile {
         }
     }
 
-    scanLink2ob(regexp_str: string) {
-            let inserts = [];
-            let regexp: RegExp = new RegExp(regexp_str, 'gm')      
-            for (let match of findignore(regexp, this.file, this.ignore_spans)) {
-                if (match[0].includes("[🔗]")) {
-                    continue; // 如果包含 "[Card]"，则跳过当前匹配
-                }
-                let id: string = Math.random().toString(36).substring(2, 8)
-                let modified:string ="\n"+"[🔗]("+ this.formatter.getUrlFromLink( this.fullpath+"#^" + id )+") ^"+ id
-                inserts.push([match.index + match[0].length, modified]);
-            }
-            this.file = string_insert(this.file, inserts);
-            //this.file = this.file.replace(card_regexp, "$1")
-    }
 
     scanFile() {
         this.setupScan()
@@ -453,9 +439,6 @@ export class AllFile extends AbstractFile {
         for (let note_type in this.custom_regexps) {
             const regexp_str: string = this.custom_regexps[note_type]
             if (regexp_str) {
-                if(this.add_card_link){
-                    this.scanLink2ob(regexp_str)
-                }
                 this.search(note_type, regexp_str)
             }
         }
@@ -466,6 +449,31 @@ export class AllFile extends AbstractFile {
     fix_newline_ids() {
         this.file = this.file.replace(double_regexp, "$1")
     }
+    getAddNotesWithId(): AnkiConnect.AnkiConnectRequest {
+        let actions: AnkiConnect.AnkiConnectRequest[] = [];
+        this.all_notes_to_add.forEach((note, index) => {
+            // 使用this.note_ids数组中的相应ID
+            let id = this.note_ids[index];
+            if (id !== null) {
+                let updated = false; // 标志是否成功替换
+                // 遍历note.fields，查找"ID-null"的子字符串，替换为"ID-"+String(id)
+                for (let key in note.fields) {
+                    let originalValue = note.fields[key];
+                    note.fields[key] = originalValue.replace(/ID-null/g, "ID-" + id);
+                    // 如果字段被更新，则设置 updated 为 true
+                    if (originalValue !== note.fields[key]) {
+                        updated = true;
+                    }
+                }
+                // 如果成功替换，则添加更新操作，并继续到下一个笔记
+                if (updated) {
+                    actions.push(AnkiConnect.updateNoteFields(id, note.fields));
+                }
+            }
+        });
+        return AnkiConnect.multi(actions);
+    }
+    
 
     writeIDs() {
         let normal_inserts: [number, string][] = []
