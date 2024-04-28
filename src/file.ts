@@ -188,7 +188,13 @@ abstract class AbstractFile {
         }
         let heading_strs: string[] = []
         for (let contextHeading of currentContext) {
-            heading_strs.push(contextHeading.heading)
+            let convertedHeading = contextHeading.heading
+            // 修改：添加Markdown链接转换为HTML链接的代码
+            const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+            convertedHeading = contextHeading.heading.replace(markdownLinkRegex, '<a href="$2">$1</a>');
+            const mathRegex = /\$(.+?)\$/g;
+            convertedHeading = convertedHeading.replace(mathRegex, '\\($1\\)');
+            heading_strs.push(convertedHeading)
         }
         let result_arr: string[] = [result]
         result_arr.push(...heading_strs)
