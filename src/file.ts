@@ -168,7 +168,7 @@ abstract class AbstractFile {
         let result: string = this.path
         let currentContext: HeadingCache[] = []
         if (!(this.file_cache.hasOwnProperty('headings'))) {
-            return result
+            return "<br>"+result+"<br>"+"<hr>"
         }
         for (let currentHeading of this.file_cache.headings) {
             if (position < currentHeading.position.start.offset) {
