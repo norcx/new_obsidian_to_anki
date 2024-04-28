@@ -42,7 +42,10 @@
       "问答题（同时生成翻转的卡片）": "正面",
       "问答题（输入答案）": "正面"
     },
-    "CONTEXT_FIELDS": {},
+    "CONTEXT_FIELDS": {
+      "Cloze ALL": "文字",
+      "问答题": "正面"
+    },
     "FOLDER_DECKS": {
       "未命名": "",
       "第一个文件夹": "",
@@ -118,7 +121,8 @@
     "未命名.md": "d41d8cd98f00b204e9800998ecf8427e",
     "norcx'anki'test/挖空测试.md": "08d3f20ea7d3869cf4e63b8ad32533ae",
     "未命名 1 1.md": "166ac5eb16bb207e951f3c68aa1f4943",
-    "一次添加成功测试.md": "988168da191b9968488324f0f79360fb"
+    "一次添加成功测试.md": "988168da191b9968488324f0f79360fb",
+    "anki测试2.md": "f3eb9c8c9f9f8de8933c605fb1776a99"
   },
   "fields_dict": {
     "Basic": [

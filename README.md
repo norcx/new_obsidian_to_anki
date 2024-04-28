@@ -5,11 +5,18 @@
 例如："/root/hello/world.md"中的卡片会自动同步到"root::hello::world"中
 2. 把id修改为block链接的形式，从而实现anki直接跳转到obsidian markdown文件对应的block
 ![图 1](images/5913712e835c128fdc7a12c0c0c1caa006ac7d47bf85a3a9f6c5970e37a0a948.png)  
-
+3. 优化了content的内容，路径和标题加在最前面，以换行分割，后面有一行分割线和卡片具体内容区分
 # 本项目使用方法
 将main.js和manifes.json文件替换obsidian to anki中的main.js manifes.json
 在插件设置中，开启设置，并重启obsidian
 具体的使用方法可以参考[Obsidian_to_Anki](https://github.com/Pseudonium/Obsidian_to_Anki)
+
+原来的正则表达式`(?<!<!--)`改为`(?<!<!--)(?<!\^ID-)`即可正常使用blockid
+ 
+# todo
+优化加入上下文的格式，支持链接
+优化数学公式的转化,保证`\$`和`}}`能够正常显示
+
 
 # tip
 填空题存在问题，可能会匹配bookxnote和latex公式,请使用"((?:.+\n)*(?:.*{{c.*)(?:\n(?:^.{1,3}$|^.{4}(?<!<!--).*))*)",

@@ -192,7 +192,7 @@ abstract class AbstractFile {
         }
         let result_arr: string[] = [result]
         result_arr.push(...heading_strs)
-        return result_arr.join(" > ")
+        return "<br>"+result_arr.join("<br>")+"<br>"+"<hr>"
     }
 
     abstract writeIDs(): void
