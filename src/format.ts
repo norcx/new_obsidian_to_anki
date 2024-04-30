@@ -119,8 +119,16 @@ export class FormatConverter {
 		if (!(this.file_cache.hasOwnProperty("links"))) {
 			return note_text
 		}
+		const regex = /\[([^\]]+)\]\(([^\)]+#\^ID-(\d{13}))\)/g;
 		for (let link of this.file_cache.links) {
+			//regex.test(input)
+			if(link.link.includes("#^ID-")){
+			const replacedString = link.original.replace(regex, '[$1|nid$3]');
+			note_text = note_text.replace(new RegExp(c.escapeRegex(link.original), "g"),replacedString)
+			}
+			else{
 			note_text = note_text.replace(new RegExp(c.escapeRegex(link.original), "g"), '<a href="' + this.getUrlFromLink(link.link) + '">' + link.displayText + "</a>")
+			}
 		}
 		return note_text
 	}

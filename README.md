@@ -1,11 +1,12 @@
 # 简介
 本项目由 [Obsidian_to_Anki](https://github.com/Pseudonium/Obsidian_to_Anki) fork而来
-在原来代码的基础上，添加了两个功能
+在原来代码的基础上，添加一些功能
 1. 让obsidian markdown文件中的卡片在anki的deck的结构与文件夹结构保存一致
 例如："/root/hello/world.md"中的卡片会自动同步到"root::hello::world"中
-2. 把id修改为block链接的形式，从而实现anki直接跳转到obsidian markdown文件对应的block
+2. 把id修改为blockid的形式，从而实现anki直接跳转到obsidian markdown文件对应的block
 ![图 1](images/5913712e835c128fdc7a12c0c0c1caa006ac7d47bf85a3a9f6c5970e37a0a948.png)  
 3. 优化了context的内容，路径和标题加在最前面，以换行分割，后面有一行分割线和卡片具体内容区分。标题中如果有链接或公式可以转化成功。
+4. 对于卡片中对blockid的引用链接，自动转化为anki link插件支持的格式`[link test|nid1714433449297]`
 # 本项目使用方法
 将main.js和manifes.json文件替换obsidian to anki中的main.js manifes.json
 在插件设置中，开启设置，并重启obsidian
