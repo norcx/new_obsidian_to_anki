@@ -80,19 +80,53 @@ Requirements:
 - AnkiConnect enabled in Anki
 - AnkiConnect configured to allow Obsidian, usually with `app://obsidian.md`
 
-Manual build:
+### Install From Release Zip
+
+1. Download `better-obsidian-to-anki-<version>.zip` from the [Releases](https://github.com/norcx/new_obsidian_to_anki/releases) page.
+2. Extract the zip into your vault's plugin directory.
+3. The final folder should look like this:
+
+```text
+<vault>/.obsidian/plugins/better-obsidian-to-anki/
+  main.js
+  manifest.json
+  styles.css
+```
+
+On Windows, the path is usually similar to:
+
+```text
+D:\YourVault\.obsidian\plugins\better-obsidian-to-anki
+```
+
+Restart Obsidian, then enable `better obsidian to anki` in Community plugins.
+
+### Install From Source
+
+Clone this repository and build the plugin:
 
 ```bash
+git clone https://github.com/norcx/new_obsidian_to_anki.git
+cd new_obsidian_to_anki
 npm install
 npm run build
 ```
 
-Copy these files into the Obsidian plugin folder:
+Create a plugin folder in your vault and copy these files into it:
 
 ```text
 main.js
 manifest.json
 styles.css
+```
+
+For example:
+
+```text
+<vault>/.obsidian/plugins/better-obsidian-to-anki/
+  main.js
+  manifest.json
+  styles.css
 ```
 
 ## Recommended Settings

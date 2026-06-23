@@ -80,19 +80,53 @@ Markdown 格式化时会先保护代码块，再处理数学公式、cloze、高
 - AnkiConnect
 - AnkiConnect 允许 Obsidian 调用，通常需要包含 `app://obsidian.md`
 
-手动构建：
+### 使用 Release Zip 安装
+
+1. 从 [Releases](https://github.com/norcx/new_obsidian_to_anki/releases) 页面下载 `better-obsidian-to-anki-<version>.zip`。
+2. 解压到你的 Obsidian vault 插件目录。
+3. 最终目录结构应类似：
+
+```text
+<vault>/.obsidian/plugins/better-obsidian-to-anki/
+  main.js
+  manifest.json
+  styles.css
+```
+
+Windows 上通常类似：
+
+```text
+D:\YourVault\.obsidian\plugins\better-obsidian-to-anki
+```
+
+重启 Obsidian，然后在第三方插件里启用 `better obsidian to anki`。
+
+### 使用源码安装
+
+克隆本仓库并构建：
 
 ```bash
+git clone https://github.com/norcx/new_obsidian_to_anki.git
+cd new_obsidian_to_anki
 npm install
 npm run build
 ```
 
-把这些文件复制到 Obsidian 插件目录：
+在你的 vault 中创建插件目录，然后复制这些文件进去：
 
 ```text
 main.js
 manifest.json
 styles.css
+```
+
+例如：
+
+```text
+<vault>/.obsidian/plugins/better-obsidian-to-anki/
+  main.js
+  manifest.json
+  styles.css
 ```
 
 ## 推荐设置
