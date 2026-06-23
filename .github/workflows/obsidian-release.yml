@@ -62,7 +62,7 @@ jobs:
         with:
           tag_name: ${{ env.tag }}
           generate_release_notes: true
-          draft: true
+          draft: false
           files: |
             main.js
             manifest.json
