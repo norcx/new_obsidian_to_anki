@@ -150,6 +150,33 @@ For example:
   styles.css
 ```
 
+## Migrating From Obsidian_to_Anki
+
+If you already used the upstream `Obsidian_to_Anki` plugin or an older copy of this fork, keep your existing `data.json`. That file stores plugin settings, note type field mappings, the added-media cache, and file hashes. Your Markdown files already contain Anki note IDs, so do not rewrite or remove those IDs during migration.
+
+Recommended migration:
+
+1. Close Obsidian.
+2. Find the old plugin folder, commonly `<vault>/.obsidian/plugins/obsidian-to-anki-plugin/` for the upstream plugin, or an older fork folder such as `norcx-ob-to-anki/`.
+3. Create or rename the target folder to `<vault>/.obsidian/plugins/better-obsidian-to-anki/`.
+4. Keep or copy the old `data.json` into the target folder.
+5. Replace `main.js`, `manifest.json`, and `styles.css` with the files from this fork's release zip or source build.
+6. Disable or remove the old plugin folder so only one Obsidian-to-Anki plugin scans the vault.
+7. Restart Obsidian and enable `better obsidian to anki`.
+8. Open the plugin settings once after upgrading. Older path-deck settings are migrated to `Deck = {path}` there.
+
+File handling summary:
+
+| File | What to do | Why |
+| --- | --- | --- |
+| `data.json` | Keep or copy from the old plugin folder | Preserves settings, file hashes, media cache, and field mappings. |
+| `main.js` | Replace with the new file | Contains this fork's plugin code. |
+| `manifest.json` | Replace with the new file | Updates the plugin name, version, and metadata. |
+| `styles.css` | Replace with the new file | Keeps the settings UI styles in sync. |
+| Markdown notes | Leave unchanged | Existing note IDs link your Obsidian cards to Anki notes. |
+
+If you migrate from the original upstream plugin, Obsidian may treat this fork as a separate plugin because the manifest ID can differ. Copying `data.json` into the new plugin folder is what carries your old settings into this fork.
+
 ## Recommended Settings
 
 | Setting | Recommendation | Purpose |

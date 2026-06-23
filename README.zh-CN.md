@@ -150,6 +150,33 @@ styles.css
   styles.css
 ```
 
+## 从 Obsidian_to_Anki 迁移
+
+如果你已经用过上游 `Obsidian_to_Anki` 插件，或者用过这个 fork 的旧版本，请保留原来的 `data.json`。这个文件保存插件设置、笔记类型字段映射、已同步媒体缓存和文件 hash。Markdown 文件里已经写入的 Anki note ID 也要保留，不要在迁移时删除或重写。
+
+推荐迁移步骤：
+
+1. 关闭 Obsidian。
+2. 找到旧插件目录。上游插件通常类似 `<vault>/.obsidian/plugins/obsidian-to-anki-plugin/`，旧版 fork 可能类似 `norcx-ob-to-anki/`。
+3. 创建或重命名目标目录为 `<vault>/.obsidian/plugins/better-obsidian-to-anki/`。
+4. 把旧目录里的 `data.json` 保留或复制到目标目录。
+5. 用本 fork 的 release zip 或源码构建产物替换 `main.js`、`manifest.json`、`styles.css`。
+6. 禁用或移除旧插件目录，避免两个 Obsidian-to-Anki 插件同时扫描同一个 vault。
+7. 重启 Obsidian，并启用 `better obsidian to anki`。
+8. 升级后打开一次插件设置页。旧的路径牌组配置会在那里迁移为 `Deck = {path}`。
+
+文件处理摘要：
+
+| 文件 | 处理方式 | 原因 |
+| --- | --- | --- |
+| `data.json` | 从旧插件目录保留或复制 | 保留设置、文件 hash、媒体缓存和字段映射。 |
+| `main.js` | 替换为新文件 | 包含这个 fork 的插件代码。 |
+| `manifest.json` | 替换为新文件 | 更新插件名称、版本和元数据。 |
+| `styles.css` | 替换为新文件 | 保持设置界面样式同步。 |
+| Markdown 笔记 | 不要改动 | 已有 note ID 用来连接 Obsidian 卡片和 Anki note。 |
+
+如果你从原始上游插件迁移，Obsidian 可能会把这个 fork 当成另一个插件，因为 manifest ID 可能不同。把旧的 `data.json` 复制到新插件目录，才会把旧设置带到这个 fork。
+
 ## 推荐设置
 
 | 设置项 | 建议 | 作用 |
