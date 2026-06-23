@@ -1,8 +1,8 @@
-# norcx' Obsidian_to_Anki
+# better-obsidian-to-anki
 
 [English documentation](README.md)
 
-本项目 fork 自 [Obsidian_to_Anki](https://github.com/Pseudonium/Obsidian_to_Anki)，保留原插件“从 Obsidian Markdown 批量同步卡片到 Anki”的核心能力，并在个人使用场景上增加了路径 deck、block 级回跳、context 展示和数学/代码格式化优化。
+better-obsidian-to-anki fork 自 [Obsidian_to_Anki](https://github.com/Pseudonium/Obsidian_to_Anki)，保留原插件“从 Obsidian Markdown 批量同步卡片到 Anki”的核心能力，并在个人使用场景上增加了路径 deck、block 级回跳、context 展示和数学/代码格式化优化。
 
 原插件的基础笔记语法、AnkiConnect 配置、自定义正则、图片/音频同步、Frozen Fields、删除标记和扫描流程仍然适用。本文重点说明本 fork 相比上游新增或调整的行为。
 
@@ -21,7 +21,19 @@ Anki deck:    root::hello::world
 
 这样可以让 Anki deck 结构和 Obsidian 文件夹结构保持一致，适合按课程、章节、项目或学科目录管理卡片。
 
+新生成的配置中，`Use Path as Deck` 默认开启。
+
+如果设置了 `Scan Directory`，生成 deck 名称时会先移除这个扫描目录前缀。例如：
+
+```text
+Scan Directory: anki
+Obsidian 文件: anki/LinearAlgebra/矩阵求导.md
+Anki deck:    LinearAlgebra::矩阵求导
+```
+
 注意：开启后会优先使用文件路径生成 deck。如果你仍希望在单个文件中通过 `TARGET DECK` 指定 deck，需要关闭 `Use Path as Deck`。
+
+如果你移动或重命名 Markdown 文件，下次扫描会把这个新路径视为已变更文件，并把已有 Anki 卡片移动到新的路径 deck。
 
 ### 2. 使用 Obsidian block id 作为卡片 ID
 
@@ -136,7 +148,7 @@ styles.css
 | --- | --- | --- |
 | `Add File Link` | 开启 | 在 Anki 字段里加入回到 Obsidian 的链接。 |
 | `Add Card link` | 开启 | 让来源链接定位到具体 Obsidian block。 |
-| `Use Path as Deck` | 按需开启 | 将 Markdown 文件路径映射为 Anki deck 路径。 |
+| `Use Path as Deck` | 默认开启 | 将 Markdown 文件路径映射为 Anki deck 路径；设置 `Scan Directory` 时会移除扫描目录前缀。 |
 | `Add Context` | 开启 | 在卡片字段前面加入路径和标题上下文。 |
 | `ID Comments` | 使用 block id 时通常关闭 | HTML 注释会影响 Obsidian 识别 block id。 |
 

@@ -63,6 +63,7 @@ export interface FileData {
 
 export interface ParsedSettings extends FileData {
 	add_file_link: boolean
+	scan_directory: string
 	folder_decks: Record<string, string>
 	folder_tags: Record<string, string>
 	ignored_file_globs: string[]

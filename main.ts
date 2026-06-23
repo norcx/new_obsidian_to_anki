@@ -35,15 +35,15 @@ export default class MyPlugin extends Plugin {
 				"Scan Directory": "",
 				"Tag": "Obsidian_to_Anki",
 				"Deck": "Default",
+				"Use Path as Deck" : true,
 				"Scheduling Interval": 0,
 				"Add File Link": false,
+				"Add Card link": false,
 				"Add Context": false,
 				"CurlyCloze": false,
 				"CurlyCloze - Highlights to Clozes": false,
 				"ID Comments": true,
-				"Add Obsidian Tags": false,
-				"Use Path as Deck" : false,
-				"Add Card link": false
+				"Add Obsidian Tags": false
 			},
 			IGNORED_FILE_GLOBS: DEFAULT_IGNORED_FILE_GLOBS,
 		}

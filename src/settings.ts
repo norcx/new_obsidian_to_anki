@@ -12,9 +12,24 @@ const defaultDescs = {
 	"CurlyCloze - Highlights to Clozes": "Convert ==highlights== -> {highlights} to be processed by CurlyCloze.",
 	"ID Comments": "Wrap note IDs in a HTML comment.",
 	"Add Obsidian Tags": "Interpret #tags in the fields of a note as Anki tags, removing them from the note text in Anki.",
-	"Use Path as Deck": "Make anki's deck consistent with obsidian's folder structure",
+	"Use Path as Deck": "Make Anki's deck structure follow Obsidian file paths. If Scan Directory is set, that prefix is removed from generated deck names.",
 	"Add Card link":"Add a link to be able to jump from anki to a block in obsidian",
 }
+
+const defaultSettingOrder = [
+	"Scan Directory",
+	"Tag",
+	"Deck",
+	"Use Path as Deck",
+	"Scheduling Interval",
+	"Add File Link",
+	"Add Card link",
+	"Add Context",
+	"CurlyCloze",
+	"CurlyCloze - Highlights to Clozes",
+	"ID Comments",
+	"Add Obsidian Tags"
+]
 
 export const DEFAULT_IGNORED_FILE_GLOBS = [
 	'**/*.excalidraw.md'
@@ -198,12 +213,15 @@ export class SettingsTab extends PluginSettingTab {
 			plugin.settings["Defaults"]["Add Obsidian Tags"] = false
 		}
 		if (!(plugin.settings["Defaults"].hasOwnProperty("Use Path as Deck"))) {
-			plugin.settings["Defaults"]["Use Path as Deck"] = false
+			plugin.settings["Defaults"]["Use Path as Deck"] = true
 		}
 		if (!(plugin.settings["Defaults"].hasOwnProperty("Add Card link"))) {
 			plugin.settings["Defaults"]["Add Card link"] = false
 		}
-		for (let key of Object.keys(plugin.settings["Defaults"])) {
+		const defaultKeys = defaultSettingOrder.concat(
+			Object.keys(plugin.settings["Defaults"]).filter(key => !(defaultSettingOrder.includes(key)))
+		)
+		for (let key of defaultKeys) {
 			// To account for removal of regex setting
 			if (key === "Regex") {
 				continue

@@ -119,6 +119,15 @@ export class FileManager {
         return tags_list
     }
 
+    getPathDeckName(file: TFile): string {
+        let deck_path = file.path.slice(0, -file.extension.length - 1).replace(/\\/g, "/")
+        const scan_directory = this.data.scan_directory.replace(/\\/g, "/").replace(/^\/+|\/+$/g, "")
+        if (scan_directory && deck_path.startsWith(scan_directory + "/")) {
+            deck_path = deck_path.slice(scan_directory.length + 1)
+        }
+        return deck_path
+    }
+
     dataToFileData(file: TFile): FileData {
         const folder_path_list: TFolder[] = this.getFolderPathList(file)
         let result: FileData = JSON.parse(JSON.stringify(this.data))
@@ -137,7 +146,7 @@ export class FileManager {
     async genAllFiles() {
         for (let file of this.files) {
             const content: string = await this.app.vault.read(file)
-            const fullpath: string = (file.path.slice(0, -file.extension.length - 1))
+            const fullpath: string = this.getPathDeckName(file)
             const cache: CachedMetadata = this.app.metadataCache.getCache(file.path)
             const file_data = this.dataToFileData(file)
             this.ownFiles.push(
@@ -315,7 +324,7 @@ export class FileManager {
         let temp: AnkiConnect.AnkiConnectRequest[] = []
         console.info("Requesting cards to be moved to target deck...")
         for (let file of this.ownFiles) {
-            if (file.regex_id_indexes.length + file.inline_id_indexes.length === 0)
+            if (file.card_ids.length === 0)
             continue
             temp.push(file.getChangeDecks())
         }

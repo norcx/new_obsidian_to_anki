@@ -209,8 +209,8 @@ abstract class AbstractFile {
 
     getCreateDecks(): AnkiConnect.AnkiConnectRequest {        
         let actions: AnkiConnect.AnkiConnectRequest[] = []
-        for (let note of this.all_notes_to_add) {
-            actions.push(AnkiConnect.createDeck(note.deckName))
+        if (this.all_notes_to_add.length || this.notes_to_edit.length) {
+            actions.push(AnkiConnect.createDeck(this.target_deck))
         }
         return AnkiConnect.multi(actions)
     }

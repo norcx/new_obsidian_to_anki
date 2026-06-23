@@ -1,8 +1,8 @@
-# norcx' Obsidian_to_Anki
+# better-obsidian-to-anki
 
 [中文文档](README.zh-CN.md)
 
-This project is forked from [Obsidian_to_Anki](https://github.com/Pseudonium/Obsidian_to_Anki). It keeps the upstream plugin's core workflow for syncing flashcards from Obsidian Markdown files to Anki, and adds several changes for folder-based deck organization, block-level source links, richer context output, and safer math/code formatting.
+better-obsidian-to-anki is forked from [Obsidian_to_Anki](https://github.com/Pseudonium/Obsidian_to_Anki). It keeps the upstream plugin's core workflow for syncing flashcards from Obsidian Markdown files to Anki, and adds several changes for folder-based deck organization, block-level source links, richer context output, and safer math/code formatting.
 
 The original plugin documentation is still relevant for the basic note syntax, AnkiConnect setup, custom regular expressions, image/audio syncing, frozen fields, deletion markers, and general scan workflow. This README focuses on the behavior added or changed in this fork.
 
@@ -21,7 +21,19 @@ Anki deck:    root::hello::world
 
 This is useful when your Obsidian vault already has a meaningful folder structure, such as courses, chapters, projects, or subjects, and you want Anki decks to follow the same hierarchy.
 
+`Use Path as Deck` is enabled by default for newly generated settings.
+
+If `Scan Directory` is set, that scan-directory prefix is removed from the generated deck name. For example:
+
+```text
+Scan Directory: anki
+Obsidian file:  anki/LinearAlgebra/matrix-derivatives.md
+Anki deck:      LinearAlgebra::matrix-derivatives
+```
+
 When this option is enabled, the file path takes priority over the file-level `TARGET DECK` setting. Disable `Use Path as Deck` if you want individual Markdown files to control their target deck with `TARGET DECK`.
+
+If you move or rename a Markdown file, the next scan treats the new file path as changed and moves existing Anki cards to the newly generated deck path.
 
 ### 2. Use Obsidian Block IDs As Card IDs
 
@@ -136,7 +148,7 @@ Then restart Obsidian and enable the plugin.
 | --- | --- | --- |
 | `Add File Link` | Enable | Adds a link from Anki back to Obsidian. |
 | `Add Card link` | Enable | Makes the source link target the exact Obsidian block. |
-| `Use Path as Deck` | Enable if desired | Maps Markdown file paths to Anki deck paths. |
+| `Use Path as Deck` | Enabled by default | Maps Markdown file paths to Anki deck paths, removing the `Scan Directory` prefix when set. |
 | `Add Context` | Enable | Adds file and heading context before the card content. |
 | `ID Comments` | Usually disable for block IDs | HTML comments hide IDs from Obsidian block recognition. |
 
