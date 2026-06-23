@@ -1,7 +1,7 @@
 name: Test e2e
 
 env:
-  PLUGIN_NAME: obsidian-to-anki-plugin
+  PLUGIN_NAME: better-obsidian-to-anki
   NODE_V: '18.x'
 
 on:
@@ -53,7 +53,7 @@ jobs:
         if: always()
         run: |
           mkdir ${{ env.PLUGIN_NAME }}
-          cp main.js manifest.json styles.css README.md ${{ env.PLUGIN_NAME }}
+          cp main.js manifest.json styles.css ${{ env.PLUGIN_NAME }}
           zip -r ${{ env.PLUGIN_NAME }}.zip ${{ env.PLUGIN_NAME }}
 
       - name: Publish Test Results in Comment
@@ -264,7 +264,7 @@ jobs:
         if: always()
         run: |
           mkdir ${{ env.PLUGIN_NAME }}
-          cp main.js manifest.json styles.css README.md ${{ env.PLUGIN_NAME }}
+          cp main.js manifest.json styles.css ${{ env.PLUGIN_NAME }}
           zip -r ${{ env.PLUGIN_NAME }}.zip ${{ env.PLUGIN_NAME }}
 
       - name: Publish Test Results in Comment
@@ -444,4 +444,3 @@ jobs:
               });
               return result;
             }
-
