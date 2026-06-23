@@ -43,7 +43,6 @@ export async function settingToData(app: App, settings: PluginSettings, fields_d
     result.comment = settings.Defaults["ID Comments"]
     result.add_context = settings.Defaults["Add Context"]
     result.add_obs_tags = settings.Defaults["Add Obsidian Tags"]
-    result.use_path_as_deck= settings.Defaults["Use Path as Deck"]
     result.add_card_link = settings.Defaults["Add Card link"]
     result.ignored_file_globs = settings.IGNORED_FILE_GLOBS ?? [];
 

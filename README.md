@@ -12,7 +12,7 @@ The main addition is source navigation: cards created in Anki can link back to t
 
 - Anki cards can jump back to the exact Obsidian block via `obsidian://open` links.
 - Card IDs can be written as Obsidian block IDs, such as `^ID-1714433449297`.
-- Decks can follow Obsidian file paths with `Use Path as Deck`.
+- Decks can follow Obsidian file paths with templates such as `{path}`.
 - `Scan Directory` prefixes are removed from generated path decks.
 - Moving or renaming a Markdown file can move existing Anki cards to the new path deck.
 - Context can be prepended to fields with file and heading information.
@@ -20,24 +20,45 @@ The main addition is source navigation: cards created in Anki can link back to t
 
 The upstream documentation is still useful for the basic note syntax, AnkiConnect setup, custom regex notes, media syncing, frozen fields, and deletion markers.
 
-## Path Decks
+## Deck Templates
 
-With `Use Path as Deck` enabled:
+The `Deck` setting can be a fixed deck name or a template. Supported variables:
 
 ```text
+{path}    Obsidian file path without .md, using :: as separators
+{folder}  Parent folder path, using :: as separators
+{file}    File name without .md
+```
+
+Examples:
+
+```text
+Deck:          Default
+Anki deck:     Default
+```
+
+```text
+Deck:          {path}
 Obsidian file: root/hello/world.md
-Anki deck:    root::hello::world
+Anki deck:     root::hello::world
+```
+
+```text
+Deck:          {folder}::{file}
+Obsidian file: LinearAlgebra/matrix-derivatives.md
+Anki deck:     LinearAlgebra::matrix-derivatives
 ```
 
 If `Scan Directory` is set, that prefix is removed:
 
 ```text
 Scan Directory: anki
+Deck:           {path}
 Obsidian file:  anki/LinearAlgebra/matrix-derivatives.md
 Anki deck:      LinearAlgebra::matrix-derivatives
 ```
 
-`Use Path as Deck` is enabled by default for newly generated settings. If you move or rename a Markdown file, the next scan treats the new path as changed and moves existing Anki cards to the newly generated deck.
+New settings use `Deck = {path}` by default. Older path-deck configurations are migrated to `Deck = {path}`. If you move or rename a Markdown file, the next scan treats the new path as changed and moves existing Anki cards to the newly generated deck.
 
 ## Block Links
 
@@ -135,7 +156,7 @@ For example:
 | --- | --- | --- |
 | `Add File Link` | Enable | Adds a link from Anki back to Obsidian. |
 | `Add Card link` | Enable | Makes the source link target the exact Obsidian block. |
-| `Use Path as Deck` | Enabled by default | Maps Markdown paths to Anki deck paths. |
+| `Deck` | `{path}` by default | Fixed deck name or template using `{path}`, `{folder}`, and `{file}`. |
 | `Add Context` | Optional | Adds file and heading context before card content. |
 | `ID Comments` | Usually disable for block IDs | HTML comments can hide IDs from Obsidian block recognition. |
 

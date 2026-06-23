@@ -119,13 +119,32 @@ export class FileManager {
         return tags_list
     }
 
-    getPathDeckName(file: TFile): string {
-        let deck_path = file.path.slice(0, -file.extension.length - 1).replace(/\\/g, "/")
+    getTemplatePath(file: TFile): string {
+        let template_path = file.path.slice(0, -file.extension.length - 1).replace(/\\/g, "/")
         const scan_directory = this.data.scan_directory.replace(/\\/g, "/").replace(/^\/+|\/+$/g, "")
-        if (scan_directory && deck_path.startsWith(scan_directory + "/")) {
-            deck_path = deck_path.slice(scan_directory.length + 1)
+        if (scan_directory && template_path.startsWith(scan_directory + "/")) {
+            template_path = template_path.slice(scan_directory.length + 1)
         }
-        return deck_path
+        return template_path
+    }
+
+    formatDeckPath(path: string): string {
+        return path.split("/").filter(Boolean).join("::")
+    }
+
+    renderDeckTemplate(template: string, file: TFile): string {
+        const template_path = this.getTemplatePath(file)
+        const parts = template_path.split("/").filter(Boolean)
+        const file_name = parts.length ? parts[parts.length - 1] : file.basename
+        const folder_path = parts.slice(0, -1).join("/")
+        const rendered = template
+            .replace(/{path}/g, this.formatDeckPath(template_path))
+            .replace(/{folder}/g, this.formatDeckPath(folder_path))
+            .replace(/{file}/g, file_name)
+            .replace(/:{3,}/g, "::")
+            .replace(/^::|::$/g, "")
+            .trim()
+        return rendered || "Default"
     }
 
     dataToFileData(file: TFile): FileData {
@@ -138,7 +157,7 @@ export class FileManager {
         result.NOTE_REGEXP = this.data.NOTE_REGEXP
         result.INLINE_REGEXP = this.data.INLINE_REGEXP
         result.EMPTY_REGEXP = this.data.EMPTY_REGEXP
-        result.template.deckName = this.getDefaultDeck(file, folder_path_list)
+        result.template.deckName = this.renderDeckTemplate(this.getDefaultDeck(file, folder_path_list), file)
         result.template.tags = this.getDefaultTags(file, folder_path_list)
         return result
     }
@@ -146,7 +165,6 @@ export class FileManager {
     async genAllFiles() {
         for (let file of this.files) {
             const content: string = await this.app.vault.read(file)
-            const fullpath: string = this.getPathDeckName(file)
             const cache: CachedMetadata = this.app.metadataCache.getCache(file.path)
             const file_data = this.dataToFileData(file)
             this.ownFiles.push(
@@ -156,8 +174,6 @@ export class FileManager {
                     this.data.add_file_link ? (this.data.add_card_link ? this.getUrl(file).slice(0,-3)+"%23%5E" :this.getUrl(file)) : "",
                     file_data,
                     cache,
-                    fullpath,
-                    this.data.use_path_as_deck,
                     this.data.add_card_link
                 )
             )

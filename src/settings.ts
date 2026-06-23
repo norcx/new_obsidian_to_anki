@@ -4,7 +4,7 @@ import * as AnkiConnect from './anki'
 const defaultDescs = {
 	"Scan Directory": "The directory to scan. Leave empty to scan the entire vault",
 	"Tag": "The tag that the plugin automatically adds to any generated cards.",
-	"Deck": "The deck the plugin adds cards to if TARGET DECK is not specified in the file.",
+	"Deck": "Deck name or template used when TARGET DECK is not specified. Supports {path}, {folder}, and {file}.",
 	"Scheduling Interval": "The time, in minutes, between automatic scans of the vault. Set this to 0 to disable automatic scanning.",
 	"Add File Link": "Append a link to the file that generated the flashcard on the field specified in the table.",
 	"Add Context": "Append 'context' for the card, in the form of path > heading > heading etc, to the field specified in the table.",
@@ -12,7 +12,6 @@ const defaultDescs = {
 	"CurlyCloze - Highlights to Clozes": "Convert ==highlights== -> {highlights} to be processed by CurlyCloze.",
 	"ID Comments": "Wrap note IDs in a HTML comment.",
 	"Add Obsidian Tags": "Interpret #tags in the fields of a note as Anki tags, removing them from the note text in Anki.",
-	"Use Path as Deck": "Make Anki's deck structure follow Obsidian file paths. If Scan Directory is set, that prefix is removed from generated deck names.",
 	"Add Card link":"Add a link to be able to jump from anki to a block in obsidian",
 }
 
@@ -20,7 +19,6 @@ const defaultSettingOrder = [
 	"Scan Directory",
 	"Tag",
 	"Deck",
-	"Use Path as Deck",
 	"Scheduling Interval",
 	"Add File Link",
 	"Add Card link",
@@ -204,6 +202,13 @@ export class SettingsTab extends PluginSettingTab {
 		if (!(plugin.settings["Defaults"].hasOwnProperty("Scheduling Interval"))) {
 			plugin.settings["Defaults"]["Scheduling Interval"] = 0
 		}
+		if (plugin.settings["Defaults"]["Use Path as Deck"]) {
+			plugin.settings["Defaults"]["Deck"] = "{path}"
+		}
+		if (plugin.settings["Defaults"].hasOwnProperty("Use Path as Deck")) {
+			delete plugin.settings["Defaults"]["Use Path as Deck"]
+			plugin.saveAllData()
+		}
 		// To account for new highlights to clozes
 		if (!(plugin.settings["Defaults"].hasOwnProperty("CurlyCloze - Highlights to Clozes"))) {
 			plugin.settings["Defaults"]["CurlyCloze - Highlights to Clozes"] = false
@@ -211,9 +216,6 @@ export class SettingsTab extends PluginSettingTab {
 		// To account for new add obsidian tags
 		if (!(plugin.settings["Defaults"].hasOwnProperty("Add Obsidian Tags"))) {
 			plugin.settings["Defaults"]["Add Obsidian Tags"] = false
-		}
-		if (!(plugin.settings["Defaults"].hasOwnProperty("Use Path as Deck"))) {
-			plugin.settings["Defaults"]["Use Path as Deck"] = true
 		}
 		if (!(plugin.settings["Defaults"].hasOwnProperty("Add Card link"))) {
 			plugin.settings["Defaults"]["Add Card link"] = false

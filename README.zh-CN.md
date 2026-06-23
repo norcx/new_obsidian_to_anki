@@ -12,7 +12,7 @@ better-obsidian-to-anki fork 自 [Obsidian_to_Anki](https://github.com/Pseudoniu
 
 - Anki 卡片可以通过 `obsidian://open` 链接跳回具体 Obsidian block。
 - 卡片 ID 可以写成 Obsidian block id，例如 `^ID-1714433449297`。
-- 开启 `Use Path as Deck` 后，Anki 牌组可以跟随 Obsidian 文件路径。
+- `Deck` 可以使用 `{path}` 等模板，让 Anki 牌组跟随 Obsidian 文件路径。
 - 设置了 `Scan Directory` 时，生成路径牌组会移除扫描目录前缀。
 - 移动或重命名 Markdown 文件后，可以把已有 Anki 卡片移动到新的路径牌组。
 - context 可以放在字段开头，显示文件路径和标题层级。
@@ -20,24 +20,45 @@ better-obsidian-to-anki fork 自 [Obsidian_to_Anki](https://github.com/Pseudoniu
 
 原插件文档仍然适用于基础笔记语法、AnkiConnect 配置、自定义正则、媒体同步、Frozen Fields 和删除标记。
 
-## 路径牌组
+## Deck 模板
 
-开启 `Use Path as Deck` 后：
+`Deck` 设置可以是固定牌组名，也可以是模板。支持的变量：
 
 ```text
+{path}    去掉 .md 后的 Obsidian 文件路径，用 :: 分隔
+{folder}  父目录路径，用 :: 分隔
+{file}    去掉 .md 后的文件名
+```
+
+示例：
+
+```text
+Deck:      Default
+Anki deck: Default
+```
+
+```text
+Deck:          {path}
 Obsidian file: root/hello/world.md
-Anki deck:    root::hello::world
+Anki deck:     root::hello::world
+```
+
+```text
+Deck:          {folder}::{file}
+Obsidian file: LinearAlgebra/matrix-derivatives.md
+Anki deck:     LinearAlgebra::matrix-derivatives
 ```
 
 如果设置了 `Scan Directory`，会移除这个前缀：
 
 ```text
 Scan Directory: anki
+Deck:           {path}
 Obsidian file:  anki/LinearAlgebra/matrix-derivatives.md
 Anki deck:      LinearAlgebra::matrix-derivatives
 ```
 
-新生成配置中，`Use Path as Deck` 默认开启。移动或重命名 Markdown 文件后，下次扫描会把已有 Anki 卡片移动到新的路径牌组。
+新生成配置中，`Deck` 默认为 `{path}`。旧的路径牌组配置会自动迁移为 `Deck = {path}`。移动或重命名 Markdown 文件后，下次扫描会把已有 Anki 卡片移动到新的路径牌组。
 
 ## Block 跳转
 
@@ -135,7 +156,7 @@ styles.css
 | --- | --- | --- |
 | `Add File Link` | 开启 | 在 Anki 字段里加入回到 Obsidian 的链接。 |
 | `Add Card link` | 开启 | 让来源链接定位到具体 Obsidian block。 |
-| `Use Path as Deck` | 默认开启 | 将 Markdown 路径映射为 Anki 牌组路径。 |
+| `Deck` | 默认 `{path}` | 固定牌组名，或使用 `{path}`、`{folder}`、`{file}` 的模板。 |
 | `Add Context` | 按需开启 | 在卡片内容前加入文件和标题上下文。 |
 | `ID Comments` | 使用 block id 时通常关闭 | HTML 注释可能影响 Obsidian 识别 block id。 |
 
