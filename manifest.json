@@ -1,7 +1,7 @@
 {
   "id": "norcx' obsidian-to-anki-plugin",
   "name": "better obsidian to anki",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "minAppVersion": "0.9.20",
   "description": "More function for obsidian to anki",
   "author": "Norcx",
