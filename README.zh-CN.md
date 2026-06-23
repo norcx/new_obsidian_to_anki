@@ -51,7 +51,7 @@ ID: 1714433449297
 
 这样 Obsidian 能把 `^ID-...` 当作 block 锚点识别，Anki 卡片上的来源链接可以直接跳回对应 Markdown block，而不是只打开文件。
 
-![Block link example](Images/5913712e835c128fdc7a12c0c0c1caa006ac7d47bf85a3a9f6c5970e37a0a948.png)
+![Path deck and source link demo](Images/demo.gif)
 
 ### 3. 从 Anki 跳回 Obsidian block
 

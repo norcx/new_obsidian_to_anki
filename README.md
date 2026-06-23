@@ -51,7 +51,7 @@ This fork can write the ID as an Obsidian block ID:
 
 Because Obsidian treats `^ID-...` as a block anchor, a source link in Anki can open the original Markdown file at the exact block that generated the card, instead of only opening the file.
 
-![Block link example](Images/5913712e835c128fdc7a12c0c0c1caa006ac7d47bf85a3a9f6c5970e37a0a948.png)
+![Path deck and source link demo](Images/demo.gif)
 
 ### 3. Jump From Anki Back To The Obsidian Block
 
